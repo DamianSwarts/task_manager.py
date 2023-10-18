@@ -4,17 +4,23 @@ def reg_users():
        if username_1 == "admin":   
          # Prompting the user to enter a new username and password if they choose 'r'. 
         new_username = input("Enter the new user's username:\n")
-
+       #Checking if the new username is already listed in the user.txt file.
         with open('user.txt', 'r') as user_file:
             usernames_list = user_file.read()
+            # If the new username is already listed, prompt the user to enter a new username.
             while new_username in usernames_list:
                 print("\nThis user is already listed. Try registering a new user.\n")
                 new_username = input("Enter the new user's username:\n")
-
+                   
+        # If the new username entered is not listed in the user.txt file,
+        # prompt the user to enter a new password for the username.
         if new_username not in usernames_list:
             new_password = input("Enter the new user's password:\n")
+            # Prompting the user to confirm the new password.
             new_password_conf = input("Confirm the new user's password:\n") 
 
+            # If new password and confirmed password do not match,
+            # prompt the user to re-enter the password.
             while new_password != new_password_conf:
                 print("\nThe new password and the confirmed password do not match, please try again.\n")
                 new_password = input("Enter the new user's password:\n")
@@ -24,7 +30,8 @@ def reg_users():
         if new_password == new_password_conf:              
             with open("user.txt", "a") as user_file:
                 user_file.write("\n" + new_username + ", " + new_password)
-                print("\nThe new user has been registered.\n")       # Displaying a message to user when the username and password has been saved.
+                # Displaying a message to user when the username and password has been saved.
+                print("\nThe new user has been registered.\n")       
 
 def add_task():
        
@@ -43,6 +50,7 @@ def add_task():
           task_file.write("\n" + task_username + ", " + name_of_task + ", " + task_description + ", " + str(datetime.date.today()) + ", " + task_due_date + ", " + "No")     
        print("\nNew task has been added to the tasks.txt file.\n") # Displaying confirmation to the user.
 
+# Function view all the tasks in the tasks.txt file.
 def view_all(user_menu):
     print("\nAll the tasks in the tasks.txt text file:\n")
 
@@ -63,6 +71,7 @@ Task Description:
 __________________________________________________________________________________________________________________""")
     return("\nEnd of Tasks.\n")
 
+# Function that allows the user to view all tasks assigned to them.
 def view_mine(user_menu, username_1):
        
     if user_menu == "vm":
@@ -169,6 +178,7 @@ def over_due_check(due_date):
         over_due = False
         return(over_due)  # over_due value is returned.
 
+# Function to generate reports.
 def generate_reports():
 
     task_overview = ""  # Setting blank strings to store info in to be written to the generated text files.
@@ -268,13 +278,9 @@ tasks_dict = {}
 
 
 with open('user.txt', 'r+') as f:
-
     for line in f:
-
         newline = line.rstrip('\n')  # Stripping newline characters from the line.
-        
         split_line = newline.split(", ")  # Splitting the line into a list.
-        
         usernames_list.append(split_line[0])  # Assigning items from the list into corresponding list.
         passwords_list.append(split_line[0])
 
@@ -291,7 +297,6 @@ with open('tasks.txt', 'r+') as f2:
         split_line = newline.split(", ")  # Splitting line into a list of items.
         tasks_dict[f"Task {count} details:"] = split_line # Assigning each list of items to a key in tasks_dict.
         count += 1  
-
 
 # Prompting the user to enter their login details.
 print("Please enter your login details:\n\n")
@@ -312,7 +317,6 @@ with open('user.txt', 'r') as file:
        
     if username_1 and password_1 in login_details:
         print("\nLogin was successful.\n")
-
 
 while True:
     if username_1 == "admin":       # The admin user views a specific menu with extra options (gr and ds).
