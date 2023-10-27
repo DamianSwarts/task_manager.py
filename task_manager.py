@@ -2,8 +2,8 @@ import datetime
 
 def reg_users():
        if username_1 == "admin":   
-         # Prompting the user to enter a new username and password if they choose 'r'. 
-        new_username = input("Enter the new user's username:\n")
+           # Prompting the user to enter a new username and password if they choose 'r'. 
+           new_username = input("Enter the new user's username:\n")
        #Checking if the new username is already listed in the user.txt file.
         with open('user.txt', 'r') as user_file:
             usernames_list = user_file.read()
